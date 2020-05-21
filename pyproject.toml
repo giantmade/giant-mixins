@@ -23,11 +23,11 @@ packages = [
 
 [tool.poetry.dependencies]
 python = "^3.6"
-django = "2.2"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
 black = "^19.10b0"
+django = "2.2"
 
 [build-system]
 requires = ["poetry>=0.12"]
