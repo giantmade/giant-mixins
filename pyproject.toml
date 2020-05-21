@@ -1,14 +1,33 @@
 [tool.poetry]
 name = "giant-mixins"
 version = "0.1.0"
-description = ""
-authors = ["Will-Hoey <will.hoey@hotmail.co.uk>"]
+description = "A mixins app that provides some standard mixins for Giant projects"
+authors = ["Will-Hoey <will.hoey@giantmade.com>"]
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/giantmade/giant-mixins"
+repository = "https://github.com/giantmade/giant-mixins"
+keywords = ["mixins", "app"]
+classifiers = [
+    "Environment :: Console",
+    "Operating System :: OS Independent",
+    "Topic :: Software Development :: Documentation",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+include = [
+    "LICENSE",
+]
+packages = [
+    { include = "mixins" }
+]
 
 [tool.poetry.dependencies]
 python = "^3.6"
+django = "2.2"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
+black = "^19.10b0"
 
 [build-system]
 requires = ["poetry>=0.12"]
