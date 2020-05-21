@@ -1,3 +1,3 @@
 .idea
-.dist
-.giant_mixins.egg-info
+.dist/
+.giant_mixins.egg-info/

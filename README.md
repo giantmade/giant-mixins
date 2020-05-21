@@ -1,7 +1,7 @@
 Giant Mixins
 ===================
 A small, re-usable package which can be used in any project that requires mixins (which is 99% of them)
-This will include the standard mixins such as TimestampMixin, PublishingMixin and URLMixin
+This will include the standard mixins such as TimestampMixin, PublishingMixin and YoutubeURLMixin
 
 Installation
 ===================
