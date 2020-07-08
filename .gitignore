@@ -1,3 +1,7 @@
 .idea
-.dist/
-.giant_mixins.egg-info/
+.vscode
+.pytest_cache
+*__pycache__
+*.egg-info
+poetry.lock
+dist
