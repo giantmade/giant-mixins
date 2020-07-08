@@ -2,6 +2,7 @@ from urllib.parse import parse_qs, urlparse
 
 from django.core.validators import URLValidator
 from django.db import models
+from django.db.models.functions import Now
 from django.utils import timezone
 
 from .fields import AutoDateTimeField
@@ -37,7 +38,7 @@ class PublishingQuerySetMixin(models.QuerySet):
         Return the published queryset
         """
 
-        return self.filter(is_published=True, publish_at__lte=timezone.now())
+        return self.filter(is_published=True, publish_at__lte=Now())
 
 
 class PublishingMixin(models.Model):
