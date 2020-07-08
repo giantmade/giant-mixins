@@ -33,10 +33,12 @@ class PublishingQuerySetMixin(models.QuerySet):
     whose date is less than the current date
     """
 
-    def published(self):
+    def published(self, user=None):
         """
-        Return the published queryset
+        Return the published queryset, or all if user is admin
         """
+        if user and user.is_staff:
+            return self.all()
 
         return self.filter(is_published=True, publish_at__lte=Now())
 
