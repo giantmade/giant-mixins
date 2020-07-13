@@ -5,6 +5,8 @@ from django.db import models
 from django.db.models.functions import Now
 from django.utils import timezone
 
+from cms.models.fields import PageField
+
 from .fields import AutoDateTimeField
 
 __all__ = [
@@ -84,3 +86,24 @@ class YoutubeURLMixin(models.Model):
         video_id = parse_qs(urlparse(youtube_url).query["v"][0])
 
         return f"https://www.youtube.com/embed/{video_id}?rel=0&autoplay=1"
+
+
+class URLMixin(models.Model):
+    """
+    Helper mixin to add internal and external url's to a model
+    """
+
+    internal_link = PageField(related_name="+", blank=True, null=True)
+    external_url = models.URLField(blank=True, help_text="Overrides the internal link if set")
+
+    class Meta:
+        abstract = True
+
+    @property
+    def get_absolute_url(self):
+        """
+        Returns the URL's in order of importance
+        """
+        if self.external_url:
+            return self.external_url
+        return self.internal_link.get_absolute_url
