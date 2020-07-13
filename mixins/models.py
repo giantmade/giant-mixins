@@ -92,6 +92,8 @@ class URLMixin(models.Model):
     Helper mixin to add internal and external url's to a model
     Requires django-cms to be installed
     """
+    # We import here to avoid an error when loading the file. This will only error if cms is not installed and
+    # the URLMixin attempts to be loaded
     from cms.models.fields import PageField
 
     external_url = models.URLField(blank=True, help_text="Overrides the internal link if set")
