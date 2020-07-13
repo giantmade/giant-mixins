@@ -23,18 +23,22 @@ packages = [
 
 [tool.poetry.dependencies]
 python = "^3.6"
+django-cms = {version = "^3.7.3", optional = true}
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
 black = "^19.10b0"
 django = "2.2"
-django-cms = "^3.7.2"
 
-[build-system]
-requires = ["poetry>=0.12"]
-build-backend = "poetry.masonry.api"
+[tool.poetry.extras]
+cms = ["django-cms"]
 
 [[tool.poetry.source]]
 name = "TestPyPi"
 url = "https://test.pypi.org/simple/"
 secondary = true
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
+

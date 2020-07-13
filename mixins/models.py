@@ -1,11 +1,10 @@
 from urllib.parse import parse_qs, urlparse
 
 from django.core.validators import URLValidator
+from django.conf import settings
 from django.db import models
 from django.db.models.functions import Now
 from django.utils import timezone
-
-from cms.models.fields import PageField
 
 from .fields import AutoDateTimeField
 
@@ -91,10 +90,12 @@ class YoutubeURLMixin(models.Model):
 class URLMixin(models.Model):
     """
     Helper mixin to add internal and external url's to a model
+    Requires django-cms to be installed
     """
+    from cms.models.fields import PageField
 
-    internal_link = PageField(related_name="+", blank=True, null=True)
     external_url = models.URLField(blank=True, help_text="Overrides the internal link if set")
+    internal_link = PageField(related_name="+", blank=True, null=True)
 
     class Meta:
         abstract = True
