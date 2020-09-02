@@ -102,11 +102,12 @@ class URLMixin(models.Model):
     class Meta:
         abstract = True
 
-    @property
     def get_absolute_url(self):
         """
         Returns the URL's in order of importance
         """
         if self.external_url:
             return self.external_url
-        return self.internal_link.get_absolute_url
+        if self.internal_link:
+            return self.internal_link.get_public_url()
+        return None
