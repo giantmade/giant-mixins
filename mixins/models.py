@@ -109,5 +109,5 @@ class URLMixin(models.Model):
         if self.external_url:
             return self.external_url
         if self.internal_link:
-            return self.internal_link.get_absolute_url()
+            return self.internal_link.get_public_url()
         return None
