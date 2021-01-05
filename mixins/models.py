@@ -1,7 +1,6 @@
 from urllib.parse import parse_qs, urlparse
 
 from django.core.validators import URLValidator
-from django.conf import settings
 from django.db import models
 from django.db.models.functions import Now
 from django.utils import timezone
@@ -12,7 +11,7 @@ __all__ = [
     "TimestampMixin",
     "PublishingQuerySetMixin",
     "PublishingMixin",
-    "YoutubeURLMixin",
+    "VideoURLMixin",
 ]
 
 
