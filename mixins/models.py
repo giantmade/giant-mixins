@@ -59,12 +59,14 @@ class PublishingMixin(models.Model):
         abstract = True
 
 
-class YoutubeURLMixin(models.Model):
+class VideoURLMixin(models.Model):
     """
     Mixin to strip the youtube url down and retrieve the video ID
     """
 
     youtube_url = models.URLField(
+        blank=True,
+        null=True,
         help_text="Enter the full URL of the youtube video page",
         validators=[
             URLValidator(
@@ -74,17 +76,30 @@ class YoutubeURLMixin(models.Model):
             )
         ],
     )
+    alternate_url = models.URLField(
+        blank=True,
+        null=True,
+        help_text="This will be used if no Youtube URL is provided",
+    )
 
     class Meta:
         abstract = True
 
-    def youtube_video_url(self, youtube_url):
+    def youtube_video_url(self):
         """
         Get the video ID from the youtube URL
         """
-        video_id = parse_qs(urlparse(youtube_url).query["v"][0])
+        video_id = parse_qs(urlparse(self.youtube_url).query["v"][0])
 
         return f"https://www.youtube.com/embed/{video_id}?rel=0&autoplay=1"
+
+    def get_absolute_url(self):
+        """
+        Returns the url in order of importance
+        """
+        if self.youtube_url:
+            return self.youtube_video_url()
+        return self.external_url
 
 
 class URLMixin(models.Model):
@@ -92,11 +107,14 @@ class URLMixin(models.Model):
     Helper mixin to add internal and external url's to a model
     Requires django-cms to be installed
     """
+
     # We import here to avoid an error when loading the file. This will only error if cms is not installed and
     # the URLMixin attempts to be loaded
     from cms.models.fields import PageField
 
-    external_url = models.URLField(blank=True, help_text="Overrides the internal link if set")
+    external_url = models.URLField(
+        blank=True, help_text="Overrides the internal link if set"
+    )
     internal_link = PageField(related_name="+", blank=True, null=True)
 
     class Meta:
