@@ -98,7 +98,7 @@ class VideoURLMixin(models.Model):
         """
         if self.youtube_url:
             return self.youtube_video_url()
-        return self.external_url
+        return self.alternate_url
 
 
 class URLMixin(models.Model):
