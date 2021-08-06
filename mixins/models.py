@@ -118,8 +118,13 @@ class URLMixin(models.Model):
     )
     internal_link = PageField(related_name="+", blank=True, null=True)
     file = FilerFileField(
-        related_name="file", verbose_name="File", blank=True, null=True, on_delete=models.SET_NULL,
+        related_name="file",
+        verbose_name="File",
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
     )
+
     class Meta:
         abstract = True
 
