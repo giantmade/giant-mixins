@@ -5,6 +5,8 @@ from django.db import models
 from django.db.models.functions import Now
 from django.utils import timezone
 
+from filer.fields.file import FilerFileField
+
 from .fields import AutoDateTimeField
 
 __all__ = [
@@ -115,7 +117,9 @@ class URLMixin(models.Model):
         blank=True, help_text="Overrides the internal link if set"
     )
     internal_link = PageField(related_name="+", blank=True, null=True)
-
+    file = FilerFileField(
+        related_name="file", verbose_name="File", blank=True, null=True, on_delete=models.SET_NULL,
+    )
     class Meta:
         abstract = True
 
@@ -128,3 +132,9 @@ class URLMixin(models.Model):
         if self.internal_link:
             return self.internal_link.get_public_url()
         return None
+
+    def file_url(self):
+        """
+        Returns the file url
+        """
+        return self.file.url
