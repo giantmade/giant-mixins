@@ -118,7 +118,7 @@ class URLMixin(models.Model):
     )
     internal_link = PageField(related_name="+", blank=True, null=True)
     file = FilerFileField(
-        related_name="file",
+        related_name="%(class)s_files",
         verbose_name="File",
         blank=True,
         null=True,
