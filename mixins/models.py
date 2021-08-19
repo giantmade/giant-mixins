@@ -68,7 +68,11 @@ class VideoURLMixin(models.Model):
     youtube_url = models.URLField(
         blank=True,
         null=True,
-        help_text="Enter the full URL of the youtube video page",
+        help_text="""
+            Enter the full URL of the youtube video page. 
+            To start the video at a specific time add '?start=xx' to the end of the url (using seconds). 
+            You can also add extra paramaters using an ampersand, for example '?start=75&autoplay=1'.
+        """,
         validators=[
             URLValidator(
                 schemes=["https"],
