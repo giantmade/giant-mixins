@@ -62,7 +62,7 @@ class PublishingMixin(models.Model):
 
 class VideoURLMixin(models.Model):
     """
-    Mixin to strip the youtube url down and retrieve the video ID
+    Mixin to strip the youtube url down and retrieve the video ID (and start time if given)
     """
 
     youtube_url = models.URLField(
@@ -70,8 +70,8 @@ class VideoURLMixin(models.Model):
         null=True,
         help_text="""
             Enter the full URL of the youtube video page. 
-            To start the video at a specific time add '?start=xx' to the end of the url (using seconds). 
-            You can also add extra paramaters using an ampersand, for example '?start=75&autoplay=1'.
+            To start the video at a specific time add '&t=xx' to the end of the url (using seconds). 
+            You can also add extra paramaters using an ampersand, for example '&t=75&autoplay=1'.
         """,
         validators=[
             URLValidator(
@@ -92,11 +92,17 @@ class VideoURLMixin(models.Model):
 
     def youtube_video_url(self):
         """
-        Get the video ID from the youtube URL
+        Get the video ID & start time from the youtube URL
         """
-        video_id = parse_qs(urlparse(self.youtube_url).query["v"][0])
+        query_dict = parse_qs(urlparse(self.youtube_url).query)
+        video_id = query_dict["v"][0]
+        youtube_video_url = f"https://www.youtube.com/embed/{video_id}?rel=0&autoplay=1"
 
-        return f"https://www.youtube.com/embed/{video_id}?rel=0&autoplay=1"
+        if "t" in query_dict:
+            start_time = query_dict["t"][0]
+            youtube_video_url += f"&start={start_time}"
+
+        return youtube_video_url
 
     def get_absolute_url(self):
         """
