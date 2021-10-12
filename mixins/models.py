@@ -69,9 +69,10 @@ class VideoURLMixin(models.Model):
         blank=True,
         null=True,
         help_text="""
-            Enter the full URL of the youtube video page. 
-            To start the video at a specific time add '&t=xx' to the end of the url (using seconds). 
-            You can also add extra paramaters using an ampersand, for example '&t=75&autoplay=1'.
+            Enter the full URL of the youtube video page.
+            To start the video at a specific time add '?start=xx' to the end
+            of the url (using seconds). You can also add extra paramaters
+            using an ampersand, for example '?start=25&autoplay=1'.
         """,
         validators=[
             URLValidator(
