@@ -14,6 +14,7 @@ __all__ = [
     "PublishingQuerySetMixin",
     "PublishingMixin",
     "VideoURLMixin",
+    "AbstractExportMixin",
 ]
 
 
@@ -153,3 +154,41 @@ class URLMixin(models.Model):
         Returns the file url
         """
         return self.file.url
+
+
+class AbstractExportMixin:
+    """
+    Abstract class which adds the methods used to export the models data
+    """
+
+    class Meta:
+        abstract = True
+
+    @property
+    def get_fieldnames_for_export(self):
+        """
+        Using prepare_csv_export_fields, build a list of verbose names.
+        """
+        return [field.name.title() for field in self.prepare_csv_export_fields if field.concrete]
+
+    @property
+    def prepare_csv_export_data(self):
+        """
+        Using prepare_csv_export_fields, prepare the data to be output to the
+        csv.
+
+        :concrete param: Boolean flag that indicates if the field has a database
+        column associated with it.
+        """
+        return [
+            field.value_from_object(self)
+            for field in self.prepare_csv_export_fields
+            if field.concrete
+        ]
+
+    @property
+    def prepare_csv_export_fields(self):
+        """
+        Build a list of fields that are explicitly defined on the model.
+        """
+        return [field for field in self._meta.get_fields()]
