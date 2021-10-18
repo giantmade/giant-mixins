@@ -17,42 +17,23 @@ class CSVAdminMixin(admin.ModelAdmin):
         actions = super().get_actions(request)
         return actions
 
-    def get_export_fields(self, request):
+    def export_csv(self, request, queryset):
         """
-        Build a list of model fields to add to the csv
+        CSV exporter
         """
-        model_fields = self.get_form(request, obj=self).Meta.fields
-        if hasattr(self, "csv_fields"):
-            return self.csv_fields
-        elif hasattr(self, "csv_excluded_fields"):
-            return [
-                field for field in model_fields if field not in self.csv_excluded_fields
-            ]
-        else:
-            return model_fields
-
-    def csv_export(self, request, queryset=None, *args, **kwargs):
-        """
-        Generic csv export admin action.
-        """
-        fields = self.get_export_fields(request)
-        model_name = slugify(self.model._meta.verbose_name_plural)
-        date = timezone.now().date()
-
         response = HttpResponse(content_type="text/csv")
-        response[
-            "Content-Disposition"
-        ] = f"attachment; filename={model_name}-{date}.csv"
+        response["Content-Disposition"] = 'attachment; filename="{name}-{date}.csv"'.format(
+            date=timezone.now().date(), name=slugify(queryset.model._meta.verbose_name_plural)
+        )
+
         writer = csv.writer(response)
 
-        # Build a list of headers for the csv
-        header_names = [field.title() for field in fields]
-        field_names = [field for field in fields]
-        # Write a first row with header information
-        writer.writerow(header_names)
-        # Write data rows
+        # Build the headers based on the first object in the queryset
+        writer.writerow(queryset.first().get_fieldnames_for_export)
+
         for obj in queryset:
-            writer.writerow([getattr(obj, field) for field in field_names])
+            writer.writerow(obj.prepare_csv_export_data)
+
         return response
 
-    csv_export.short_description = "Exported selected to CSV"
+    export_csv.short_description = "Export selected as CSV"
