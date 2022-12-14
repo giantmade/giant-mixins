@@ -22,7 +22,7 @@ packages = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.6.2"
+python = "^3.9"
 django-cms = {version = "~3", optional = true}
 django-filer = "~2"
 
