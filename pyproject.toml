@@ -22,15 +22,15 @@ packages = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.6"
-django-cms = {version = "^3.7.3", optional = true}
-django-filer = "^2.0.2"
+python = "^3.9"
+django-cms = {version = "~3", optional = true}
+django-filer = "~2"
 
 [tool.poetry.dev-dependencies]
-pytest = "^5.2"
-black = "^19.10b0"
-django = "2.2"
-django-polymorphic = "3.0.0"
+pytest = "~7"
+black = "~22"
+django = "~3"
+django-polymorphic = "~3"
 
 [tool.poetry.extras]
 cms = ["django-cms"]
