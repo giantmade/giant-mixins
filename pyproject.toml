@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "giant-mixins"
-version = "0.3.3"
+version = "0.3.4"
 description = "A mixins app that provides some standard mixins for Giant projects"
 authors = ["Will-Hoey <will.hoey@giantmade.com>"]
 license = "MIT"
@@ -23,7 +23,7 @@ packages = [
 
 [tool.poetry.dependencies]
 python = "^3.9"
-django-cms = {version = "~3", optional = true}
+django-cms = {version = "*", optional = true}
 django-filer = "~2"
 
 [tool.poetry.dev-dependencies]
