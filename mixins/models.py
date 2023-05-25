@@ -134,6 +134,7 @@ class URLMixin(models.Model):
         null=True,
         on_delete=models.SET_NULL,
     )
+    new_tab = models.BooleanField(default=False, help_text="Open this link in a new tab/window.")
 
     class Meta:
         abstract = True
