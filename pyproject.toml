@@ -1,17 +1,19 @@
 [tool.poetry]
 name = "giant-mixins"
-version = "0.3.6"
+version = "0.3.7"
 description = "A mixins app that provides some standard mixins for Giant projects"
-authors = ["Will-Hoey <will.hoey@giantmade.com>"]
+authors = [
+    "Will-Hoey <will.hoey@giantmade.com>",
+    "Scott Pashley <scott.pashley@giantdigital.co.uk>"
+]
 license = "MIT"
 readme = "README.md"
 homepage = "https://github.com/giantmade/giant-mixins"
 repository = "https://github.com/giantmade/giant-mixins"
 keywords = ["mixins", "app"]
 classifiers = [
-    "Environment :: Console",
+    "Framework :: Django",
     "Operating System :: OS Independent",
-    "Topic :: Software Development :: Documentation",
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 include = [
