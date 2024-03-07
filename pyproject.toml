@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "giant-mixins"
-version = "0.3.7"
+version = "0.3.8"
 description = "A mixins app that provides some standard mixins for Giant projects"
 authors = [
     "Will-Hoey <will.hoey@giantmade.com>",
