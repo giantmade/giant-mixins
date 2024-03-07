@@ -152,6 +152,11 @@ class URLMixin(models.Model):
 
     def file_url(self):
         """
-        Returns the file url
+        Returns the file url.
         """
-        return self.file.url
+
+        try:
+            return self.file.url
+        except AttributeError:
+            return ""
+
