@@ -31,7 +31,7 @@ django-filer = ">= 2, < 4"
 [tool.poetry.dev-dependencies]
 pytest = "~7"
 black = "~22"
-django = "~3"
+django = "~4"
 django-polymorphic = "~3"
 
 [tool.poetry.extras]
@@ -40,14 +40,15 @@ cms = ["django-cms"]
 [[tool.poetry.source]]
 name = "TestPyPi"
 url = "https://test.pypi.org/simple/"
-secondary = true
+priority = 'default'
 
 
 [tool.poetry.group.dev.dependencies]
 pytest-django = "^4.8.0"
 pytest-cov = "^4.1.0"
 django-filer = "^3.1.1"
-django-cms = "~3.10"
+django-cms = "~3"
+django = "~4"
 
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE="mixins.tests.settings"
