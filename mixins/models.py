@@ -10,14 +10,15 @@ from filer.fields.file import FilerFileField
 from .fields import AutoDateTimeField
 
 __all__ = [
-    "TimestampMixin",
-    "PublishingQuerySetMixin",
-    "PublishingMixin",
-    "VideoURLMixin",
+    "TimestampModelAbstract",
+    "PublishingQuerySet",
+    "PublishingModelAbstract",
+    "URLModelAbstract",
+    "VideoURLModelAbstract",
 ]
 
 
-class TimestampMixin(models.Model):
+class TimestampModelAbstract(models.Model):
     """
     Helper mixin to add a created at and updated field to a model
     """
@@ -29,7 +30,7 @@ class TimestampMixin(models.Model):
         abstract = True
 
 
-class PublishingQuerySetMixin(models.QuerySet):
+class PublishingQuerySet(models.QuerySet):
     """
     Helper mixin to filter news articles which are published and
     whose date is less than the current date
@@ -45,7 +46,7 @@ class PublishingQuerySetMixin(models.QuerySet):
         return self.filter(is_published=True, publish_at__lte=Now())
 
 
-class PublishingMixin(models.Model):
+class PublishingModelAbstract(models.Model):
     """
     Helper mixin to add the following fields: is_published, publish_date,
     title, slug
@@ -60,7 +61,7 @@ class PublishingMixin(models.Model):
         abstract = True
 
 
-class VideoURLMixin(models.Model):
+class VideoURLModelAbstract(models.Model):
     """
     Mixin to strip the youtube url down and retrieve the video ID (and start time if given)
     """
@@ -113,7 +114,7 @@ class VideoURLMixin(models.Model):
         return self.alternate_url
 
 
-class URLMixin(models.Model):
+class URLModelAbstract(models.Model):
     """
     Helper mixin to add internal and external url's to a model
     Requires django-cms to be installed
