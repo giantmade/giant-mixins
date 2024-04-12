@@ -6,7 +6,7 @@ from django.utils import timezone
 from django.utils.text import slugify
 
 
-class CSVAdminMixin(admin.ModelAdmin):
+class CSVModelAdmin(admin.ModelAdmin):
     """
     Allows us to add a csv exporter to admins
     """

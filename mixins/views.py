@@ -8,6 +8,8 @@ class ViewPassesTestMixin:
     Deny a request with PermissionError if test_func fails.
     Does not require the user to be authenticated.
     """
+    def test_func(self):
+        raise NotImplementedError
 
     def dispatch(self, *args, **kwargs):
         """Override dispatch to check the result of test_func."""

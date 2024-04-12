@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "giant-mixins"
-version = "0.3.8"
+version = "0.4.0"
 description = "A mixins app that provides some standard mixins for Giant projects"
 authors = [
     "Will-Hoey <will.hoey@giantmade.com>",
@@ -24,14 +24,14 @@ packages = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.11"
 django-cms = {version = "*", optional = true}
 django-filer = ">= 2, < 4"
 
 [tool.poetry.dev-dependencies]
 pytest = "~7"
 black = "~22"
-django = "~3"
+django = "~4"
 django-polymorphic = "~3"
 
 [tool.poetry.extras]
@@ -40,7 +40,20 @@ cms = ["django-cms"]
 [[tool.poetry.source]]
 name = "TestPyPi"
 url = "https://test.pypi.org/simple/"
-secondary = true
+priority = 'default'
+
+
+[tool.poetry.group.dev.dependencies]
+pytest-django = "^4.8.0"
+pytest-cov = "^4.1.0"
+django-filer = "^3.1.1"
+django-cms = "~3"
+django = "~4"
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE="mixins.tests.settings"
+python_files=["test_*.py", "*_test.py", "mixins/tests/test_*.py"]
+pythonpath=". mixins"
 
 [build-system]
 requires = ["poetry>=0.12"]
