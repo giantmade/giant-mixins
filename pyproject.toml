@@ -30,7 +30,7 @@ django-filer = ">= 2, < 4"
 
 [tool.poetry.dev-dependencies]
 pytest = "~7"
-black = "~22"
+black = "~24"
 django = "~3"
 django-polymorphic = "~3"
 
